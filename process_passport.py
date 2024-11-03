@@ -33,9 +33,21 @@ def split_pdf(input_path, output_folder):
 
         os.remove(image_filename)
 
-# имя файла
-input_pdf_path = './doc21571920240913120021.pdf'
-# имя папки
+# Укажите путь к папке с PDF-файлами
+pdf_folder_path = r'E:\Programs\alcopack\passport'
+
+# Папка для сохранения результатов
 output_folder_path = 'new-folder'
 os.makedirs(output_folder_path, exist_ok=True)
-split_pdf(input_pdf_path, output_folder_path)
+
+# Получаем список всех файлов в указанной папке
+files = os.listdir(pdf_folder_path)
+
+# Обрабатываем все PDF-файлы в указанной папке
+for file in files:
+    if file.lower().endswith('.pdf'):
+        input_pdf_path = os.path.join(pdf_folder_path, file)
+        split_pdf(input_pdf_path, output_folder_path)
+        # Удаляем обработанный PDF-файл, если он существует
+        if os.path.exists(input_pdf_path):
+            os.remove(input_pdf_path)
